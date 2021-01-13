@@ -1,11 +1,13 @@
 class Matrix(private val x : List<DoubleArray>) {
 
+    private var rows = x.size
+    private var cols = x[0].size
+
     companion object {
         fun createMatrix(x : List<DoubleArray>): Matrix {
             val temp = x[0].size
-            for (i in x) {
+            for (i in x)
                 if (i.size != temp) throw IllegalArgumentException(("all rows must be of identical size!"))
-            }
             return Matrix(x)
         }
 
@@ -26,11 +28,11 @@ class Matrix(private val x : List<DoubleArray>) {
     }
 
     operator fun times(other: Matrix): Matrix {
-        require(this.getCols() == other.getRows())
-        val result = List(this.getRows()) { DoubleArray(other.getCols()) }
-        for (i in 0 until this.getRows()) {
-            for (j in 0 until other.getCols()) {
-                for (k in 0 until other.getRows()) {
+        require(this.cols == other.rows)
+        val result = List(this.rows) { DoubleArray(other.cols) }
+        for (i in 0 until this.rows) {
+            for (j in 0 until other.cols) {
+                for (k in 0 until other.rows) {
                     result[i][j] += this.x[i][k] * other.x[k][j]
                 }
             }
@@ -41,7 +43,4 @@ class Matrix(private val x : List<DoubleArray>) {
     fun print() {
         for (element in x) println(element.joinToString(", "))
     }
-
-    private fun getRows(): Int = x.size
-    private fun getCols(): Int = x[0].size
 }
