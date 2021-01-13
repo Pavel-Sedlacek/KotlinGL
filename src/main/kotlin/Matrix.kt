@@ -12,13 +12,13 @@ class Matrix(private val x : List<DoubleArray>) {
         }
 
         fun createVector(x: List<DoubleArray>): Matrix {
-            if (x.size !=3) throw IllegalArgumentException("Vector must contain exactly 3 rows")
-            for (i in x) if (i.size != 1) throw IllegalArgumentException("Vector must contain 3 rows of one value")
+            if (x.size !=3) throw IllegalArgumentException("Vector must contain exactly 3 rows!")
+            for (i in x) if (i.size != 1) throw IllegalArgumentException("Vector must contain 3 rows of one value!")
             return Matrix(x)
         }
 
         fun createVector(x: DoubleArray): Matrix {
-            if (x.size != 3) throw IllegalArgumentException("Vector must contain exactly 3 rows")
+            if (x.size != 3) throw IllegalArgumentException("Vector must contain exactly 3 rows!")
             return Matrix(listOf(
                 doubleArrayOf(x[0]),
                 doubleArrayOf(x[1]),
@@ -28,7 +28,7 @@ class Matrix(private val x : List<DoubleArray>) {
     }
 
     operator fun times(other: Matrix): Matrix {
-        require(this.cols == other.rows)
+        if (this.cols == other.rows) throw IllegalArgumentException("Second needs to have same amount of rows as first columns!")
         val result = List(this.rows) { DoubleArray(other.cols) }
         for (i in 0 until this.rows) {
             for (j in 0 until other.cols) {

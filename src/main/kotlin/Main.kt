@@ -14,4 +14,5 @@ fun main() {
     )
 
     (m1 * v1).print()
+    1.times(2)
 }
